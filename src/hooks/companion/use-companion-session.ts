@@ -61,8 +61,8 @@ export function useCompanionSession() {
 
   // 画面与交互偏好
   const [themeOverride, setThemeOverrideState] = useState<ThemeOverride>('AUTO')
-  // 默认保持静音，由用户主动开启童声
-  const [soundEnabled, setSoundEnabled] = useState(false)
+  // 默认开启声音；用户仍可随时在标题栏关闭童声与古琴泛音
+  const [soundEnabled, setSoundEnabled] = useState(true)
 
   // 陪伴数据
   const [affection, setAffection] = useState(92)
