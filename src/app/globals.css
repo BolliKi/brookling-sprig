@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: #efe7d6;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background-color: #eedcb4;
+  color: #4a3423;
+}
+
+/* 田野温馨控制层：米浆纸面 + 手缝虚线边 */
+@layer components {
+  .rice-paper {
+    background-color: #faf3e2;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgb(123 91 65 / 0.05) 1px, transparent 0),
+      radial-gradient(circle at 1px 1px, rgb(176 124 49 / 0.04) 1px, transparent 0);
+    background-size: 9px 9px, 14px 14px;
+    background-position: 0 0, 4.5px 5.5px;
+  }
+
+  .stitched::after {
+    content: '';
+    position: absolute;
+    inset: 3.5px;
+    border: 1px dashed rgb(176 124 49 / 0.3);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+}
+
+/* 调试台窄滚动条 */
+.thin-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(176 124 49 / 0.35) transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background-color: rgb(176 124 49 / 0.35);
+}

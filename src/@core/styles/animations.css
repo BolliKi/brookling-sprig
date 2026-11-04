@@ -1,0 +1,360 @@
+
+/* ==========================================
+   平面灵宠与舞台的动画关键帧（由原单文件样式表拆分而来）
+   ========================================== */
+@keyframes spiritFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-7px); }
+}
+@keyframes spiritHappyJump {
+  0%, 100% { transform: translateY(0px) scale(1, 1); }
+  40% { transform: translateY(-13px) scale(0.97, 1.03); }
+  75% { transform: translateY(-3px) scale(1.02, 0.98); }
+}
+@keyframes spiritDanceSway {
+  0%, 100% { transform: translateX(-8px) translateY(-2px) rotate(-4.5deg); }
+  25% { transform: translateX(0px) translateY(-11px) rotate(0deg); }
+  50% { transform: translateX(8px) translateY(-2px) rotate(4.5deg); }
+  75% { transform: translateX(0px) translateY(-11px) rotate(0deg); }
+}
+@keyframes spiritStarHighJump {
+  0%, 100% { transform: translateY(0px) scale(1.04, 0.96); }
+  45% { transform: translateY(-22px) scale(0.95, 1.06); }
+}
+@keyframes spiritShyWiggle {
+  0%, 100% { transform: translateY(2px) rotate(-1.6deg); }
+  50% { transform: translateY(5px) rotate(1.6deg); }
+}
+@keyframes spiritShyPeek {
+  0%, 100% { transform: translateX(-6px) rotate(-3.5deg); }
+  50% { transform: translateX(-2px) rotate(-1deg); }
+}
+@keyframes spiritStretchBody {
+  0%, 100% { transform: translateY(0px) scale(1, 1); }
+  50% { transform: translateY(-6px) scale(0.96, 1.05); }
+}
+@keyframes headLookAround {
+  0%, 100% { transform: rotate(-6deg) translateX(-4px); }
+  50% { transform: rotate(6deg) translateX(4px); }
+}
+@keyframes headSleepyNod {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  65% { transform: translateY(9px) rotate(5deg); }
+  82% { transform: translateY(-2px) rotate(-1deg); }
+}
+@keyframes pawGroomRub {
+  0%, 100% { transform: rotate(96deg) translateY(0px); }
+  50% { transform: rotate(118deg) translateY(-4px); }
+}
+@keyframes pawCheerLeft {
+  0%, 100% { transform: rotate(118deg); }
+  50% { transform: rotate(138deg); }
+}
+@keyframes pawCheerRight {
+  0%, 100% { transform: rotate(-118deg); }
+  50% { transform: rotate(-138deg); }
+}
+@keyframes pawDanceLeft {
+  0%, 100% { transform: rotate(75deg); }
+  50% { transform: rotate(125deg); }
+}
+@keyframes pawDanceRight {
+  0%, 100% { transform: rotate(-125deg); }
+  50% { transform: rotate(-75deg); }
+}
+@keyframes pawFidgetLeft {
+  0%, 100% { transform: rotate(-32deg); }
+  50% { transform: rotate(-44deg); }
+}
+@keyframes pawFidgetRight {
+  0%, 100% { transform: rotate(32deg); }
+  50% { transform: rotate(44deg); }
+}
+@keyframes catLegLeftIdle {
+  0%, 100% { transform: rotate(-4deg) scaleY(1); }
+  50% { transform: rotate(-5.5deg) scaleY(0.96); }
+}
+@keyframes catLegRightIdle {
+  0%, 100% { transform: rotate(4deg) scaleY(1); }
+  50% { transform: rotate(5.5deg) scaleY(0.96); }
+}
+@keyframes catLegLeftHappy {
+  0%, 100% { transform: translateY(0px) rotate(-14deg); }
+  50% { transform: translateY(-8px) rotate(12deg); }
+}
+@keyframes catLegRightHappy {
+  0%, 100% { transform: translateY(-8px) rotate(-12deg); }
+  50% { transform: translateY(0px) rotate(14deg); }
+}
+@keyframes catLegLeftShy {
+  0%, 100% { transform: rotate(9deg) translateY(1px); }
+  50% { transform: rotate(12deg) translateY(3px); }
+}
+@keyframes catLegRightShy {
+  0%, 100% { transform: rotate(-9deg) translateY(1px); }
+  50% { transform: rotate(-12deg) translateY(3px); }
+}
+@keyframes catLegLeftSleepy {
+  0%, 100% { transform: rotate(-2deg) scaleY(0.95); }
+  50% { transform: rotate(-3deg) scaleY(0.92); }
+}
+@keyframes catLegRightSleepy {
+  0%, 100% { transform: rotate(2deg) scaleY(0.95); }
+  50% { transform: rotate(3deg) scaleY(0.92); }
+}
+@keyframes tailWagNormal {
+  0%, 100% { transform: rotate(-7deg); }
+  50% { transform: rotate(9deg); }
+}
+@keyframes tailWagFast {
+  0%, 100% { transform: rotate(-16deg); }
+  50% { transform: rotate(18deg); }
+}
+@keyframes tailWagSlow {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(4deg); }
+}
+@keyframes windChimeBreeze {
+  0%, 100% { transform: rotate(-2.2deg); }
+  50% { transform: rotate(2.8deg); }
+}
+@keyframes windChimeRing {
+  0%, 100% { transform: rotate(-8deg); }
+  25% { transform: rotate(9deg); }
+  50% { transform: rotate(-6deg); }
+  75% { transform: rotate(5deg); }
+}
+@keyframes tanzakuFlutter {
+  0%, 100% { transform: rotate(-3.5deg); }
+  50% { transform: rotate(6deg); }
+}
+
+/* 系统通知：居中轻落入场 → 停留 → 结尾淡出。
+   时长与 use-system-toast.ts 中的 SYSTEM_TOAST_LIFETIME_MS 保持一致 */
+@keyframes systemToastNoticeLife {
+  0% { opacity: 0; transform: translateY(-10px) scale(0.96); }
+  7% { opacity: 1; transform: translateY(0) scale(1); }
+  90% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-6px) scale(0.98); }
+}
+
+.system-toast-notice {
+  animation: systemToastNoticeLife 6.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  will-change: transform, opacity;
+}
+
+/* 鼠标悬浮：通知暂停淡出并轻轻上浮一下，便于阅读与点击 */
+.system-toast-notice:hover {
+  animation-play-state: paused;
+}
+
+.system-toast-notice:hover .system-toast-bubble {
+  transform: translateY(-4px);
+}
+
+.system-toast-bubble {
+  transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .system-toast-notice {
+    animation: none;
+  }
+
+  .system-toast-notice:hover .system-toast-bubble {
+    transform: none;
+  }
+}
+
+/* 心情光影氛围：柔光漂移与漂浮微光 */
+@keyframes moodGlowDrift {
+  0% { transform: translate3d(-2%, -1%, 0) scale(1); }
+  50% { transform: translate3d(3%, 2%, 0) scale(1.08); }
+  100% { transform: translate3d(-1%, 3%, 0) scale(0.96); }
+}
+@keyframes moodMoteFloat {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.12; }
+  50% { transform: translate3d(14px, -22px, 0) scale(1.25); opacity: 0.45; }
+}
+
+/* 心情漂浮物：上浮 / 飘落 / 呼吸 / 星屑 */
+@keyframes moodMoteRise {
+  0% { transform: translate3d(0, 18px, 0) scale(0.7) rotate(0deg); opacity: 0; }
+  18% { opacity: 0.85; }
+  100% { transform: translate3d(14px, -52px, 0) scale(1.2) rotate(40deg); opacity: 0; }
+}
+@keyframes moodMoteDrift {
+  0% { transform: translate3d(-16px, -12px, 0) rotate(0deg); opacity: 0; }
+  22% { opacity: 0.75; }
+  100% { transform: translate3d(20px, 38px, 0) rotate(180deg); opacity: 0; }
+}
+@keyframes moodMotePulse {
+  0%, 100% { transform: scale(0.72); opacity: 0.2; }
+  50% { transform: scale(1.35); opacity: 0.8; }
+}
+@keyframes moodAuraPulse {
+  0%, 100% { transform: scale(0.92); }
+  50% { transform: scale(1.1); }
+}
+
+/* 聊天收起后的宠物弹幕与角色随身气泡 */
+@keyframes companionDanmaku {
+  0% { transform: translate3d(100vw, 0, 0); }
+  100% { transform: translate3d(-120%, 0, 0); }
+}
+@keyframes speechBubbleLife {
+  0% { opacity: 0; transform: translateY(8px) scale(0.96); }
+  8% { opacity: 1; transform: translateY(0) scale(1); }
+  78% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-8px) scale(0.985); }
+}
+.speech-bubble-life {
+  animation: speechBubbleLife 5.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  will-change: opacity, transform;
+}
+
+/* 对话卡收起时向坐下角折入，并闪一圈金边 */
+@keyframes chatRimFlash {
+  0% {
+    border-color: rgba(212, 163, 89, 0.95);
+    box-shadow: 0 0 38px rgba(212, 163, 89, 0.7), inset 0 0 20px rgba(255, 248, 230, 0.55);
+    opacity: 1;
+  }
+  100% {
+    border-color: rgba(212, 163, 89, 0);
+    box-shadow: 0 0 0 rgba(212, 163, 89, 0);
+    opacity: 0;
+  }
+}
+.chat-rim-flash {
+  animation: chatRimFlash 620ms ease-out both;
+}
+
+/* 左下角小签弹出时的金色光环 */
+@keyframes launcherHalo {
+  0% {
+    box-shadow: 0 0 0 0 rgba(212, 163, 89, 0.7), 0 0 0 0 rgba(120, 145, 80, 0.35);
+    opacity: 1;
+  }
+  100% {
+    box-shadow: 0 0 0 22px rgba(212, 163, 89, 0), 0 0 0 38px rgba(120, 145, 80, 0);
+    opacity: 0;
+  }
+}
+.launcher-halo {
+  animation: launcherHalo 760ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* 收起时掠过卡面的金色高光 */
+@keyframes chatSheen {
+  0% { transform: translateX(0) rotate(18deg); opacity: 0; }
+  16% { opacity: 0.85; }
+  100% { transform: translateX(520%) rotate(18deg); opacity: 0; }
+}
+.chat-sheen {
+  animation: chatSheen 720ms ease-out both;
+}
+
+/* 左下角小签的金色火花 */
+.launcher-spark {
+  animation: launcherSpark 720ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes launcherSpark {
+  0% {
+    opacity: 0;
+    transform: rotate(var(--spark-angle, 0deg)) translateX(0) scale(0.5);
+  }
+  24% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(var(--spark-angle, 0deg)) translateX(30px) scale(1.1);
+  }
+}
+
+/* 灵宠出场 loading：旋转金环、浮金微粒与禾穗印记 */
+.loader-content-in {
+  animation: loaderContentIn 1000ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.loader-ring-spin {
+  animation: loaderSpin 22s linear infinite;
+}
+.loader-ring-spin-reverse {
+  animation: loaderSpin 14s linear infinite reverse;
+}
+.loader-ring-pulse {
+  animation: loaderPulse 2.8s ease-in-out infinite;
+}
+.loader-mote {
+  opacity: 0;
+  animation-name: loaderMote;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+.loader-seam {
+  animation: loaderSeam 2.4s ease-in-out infinite;
+}
+
+@keyframes loaderContentIn {
+  0% { opacity: 0; transform: translateY(16px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes loaderSpin {
+  to { transform: rotate(360deg); }
+}
+@keyframes loaderPulse {
+  0%, 100% { opacity: 0.35; transform: scale(0.96); }
+  50% { opacity: 0.9; transform: scale(1.04); }
+}
+@keyframes loaderMote {
+  0% { opacity: 0; transform: translate3d(0, 16px, 0) scale(0.6); }
+  22% { opacity: 0.8; }
+  100% { opacity: 0; transform: translate3d(10px, -44px, 0) scale(1.12); }
+}
+@keyframes loaderSeam {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 1; }
+}
+
+/* 道教符箓式竖排文字 */
+.talisman-vertical {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+}
+
+/* 竖式符箓与逐字显形的道教符文 */
+.rune-strip-float {
+  animation: runeStripFloat 4.6s ease-in-out infinite;
+}
+.rune-write {
+  opacity: 0;
+  animation: runeWrite 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.rune-sweep {
+  animation: runeSweep 2.8s ease-in-out infinite;
+}
+
+@keyframes runeStripFloat {
+  0%, 100% { transform: translateY(0) rotate(-0.6deg); }
+  50% { transform: translateY(-7px) rotate(0.8deg); }
+}
+@keyframes runeWrite {
+  0% {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+    filter: blur(2px);
+    transform: translateY(2px);
+  }
+  100% {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+@keyframes runeSweep {
+  0% { transform: translateY(-130%); opacity: 0; }
+  25% { opacity: 0.8; }
+  100% { transform: translateY(240%); opacity: 0; }
+}

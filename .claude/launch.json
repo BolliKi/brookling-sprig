@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "next-preview",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev:preview"],
+      "port": 3013
+    },
+    {
+      "name": "next-verify",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev:verify"],
+      "port": 3014
+    }
+  ]
+}
