@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useRef, useState } from 'react'
 import type { MutableRefObject } from 'react'
 
 import { Spirit2DCharacter } from '@components/character/Spirit2DCharacter'
@@ -47,11 +48,29 @@ export function StageViewport({
   onOrbitDrag,
   onEngineReady
 }: StageViewportProps) {
+  const [walkState, setWalkState] = useState({ active: false, direction: 0 })
+  const previousChatCollapsedRef = useRef(chatCollapsed)
+
+  // 对话展开 / 收起时，灵宠不是生硬平移，而是沿地面走到新位置
+  useEffect(() => {
+    if (previousChatCollapsedRef.current === chatCollapsed) return
+    previousChatCollapsedRef.current = chatCollapsed
+
+    if (!window.matchMedia('(min-width: 1024px)').matches) return
+
+    const direction = chatCollapsed ? -1 : 1
+    setWalkState({ active: true, direction })
+    const timer = window.setTimeout(() => {
+      setWalkState({ active: false, direction: 0 })
+    }, 950)
+    return () => window.clearTimeout(timer)
+  }, [chatCollapsed])
+
   return (
     <div className='absolute inset-0 z-[18] flex items-center justify-center overflow-hidden pointer-events-none'>
       <div
         data-pet-stage
-        className={`relative flex h-full max-h-[560px] w-full max-w-[680px] translate-y-[2vh] items-center justify-center transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform lg:translate-y-[17vh] ${
+        className={`relative flex h-full max-h-[560px] w-full max-w-[680px] translate-y-[2vh] items-center justify-center transition-transform duration-[900ms] ease-[cubic-bezier(0.45,0,0.25,1)] will-change-transform lg:translate-y-[17vh] ${
           chatCollapsed ? 'translate-x-0' : 'lg:translate-x-[200px] xl:translate-x-[210px]'
         }`}
       >
@@ -70,6 +89,8 @@ export function StageViewport({
             reconState={reconState}
             isSpeaking={isSpeaking}
             mouthOpenRef={mouthOpenRef}
+            isWalking={walkState.active}
+            walkDirection={walkState.direction}
             onOrbitDrag={onOrbitDrag}
             onEngineReady={onEngineReady}
           />
@@ -89,6 +110,8 @@ export function StageViewport({
             reconState={reconState}
             isSpeaking={isSpeaking}
             mouthOpenRef={mouthOpenRef}
+            isWalking={walkState.active}
+            walkDirection={walkState.direction}
           />
         </div>
 

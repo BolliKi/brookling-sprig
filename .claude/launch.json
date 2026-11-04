@@ -18,6 +18,18 @@
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "3020", "--directory", "out"],
       "port": 3020
+    },
+    {
+      "name": "voice-preview",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "3021",
+        "--directory",
+        "voice-preview"
+      ],
+      "port": 3021
     }
   ]
 }

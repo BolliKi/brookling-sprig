@@ -16,6 +16,8 @@ interface Spirit2DCharacterProps {
   reconState: ReconState
   isSpeaking: boolean
   mouthOpenRef: MutableRefObject<number>
+  isWalking?: boolean
+  walkDirection?: number
 }
 
 /**
@@ -30,7 +32,9 @@ export function Spirit2DCharacter({
   petBurst,
   reconState,
   isSpeaking,
-  mouthOpenRef
+  mouthOpenRef,
+  isWalking = false,
+  walkDirection = 0
 }: Spirit2DCharacterProps) {
   const [earTwitch, setEarTwitch] = useState(false);
   const [squashStyle, setSquashStyle] = useState({ scaleX: 1, scaleY: 1 });
@@ -159,8 +163,52 @@ export function Spirit2DCharacter({
 
   const forelimbPose = getForelimbPose();
 
+  // 对话展开 / 收起时，用短促的侧步循环替代当前动作
+  const leftLegAnimation = isWalking
+    ? 'catLegLeftWalk 0.5s ease-in-out infinite'
+    : emotionState === 'HAPPY'
+    ? 'catLegLeftHappy 0.42s ease-in-out infinite'
+    : emotionState === 'SHY'
+    ? 'catLegLeftShy 2.2s ease-in-out infinite'
+    : emotionState === 'SLEEPY'
+    ? 'catLegLeftSleepy 5.4s ease-in-out infinite'
+    : 'catLegLeftIdle 3.8s ease-in-out infinite';
+
+  const rightLegAnimation = isWalking
+    ? 'catLegRightWalk 0.5s ease-in-out infinite'
+    : emotionState === 'HAPPY'
+    ? 'catLegRightHappy 0.42s ease-in-out infinite'
+    : emotionState === 'SHY'
+    ? 'catLegRightShy 2.2s ease-in-out infinite'
+    : emotionState === 'SLEEPY'
+    ? 'catLegRightSleepy 5.4s ease-in-out infinite'
+    : 'catLegRightIdle 3.8s ease-in-out infinite';
+
+  const leftPawAnimation = isWalking
+    ? 'pawWalkLeft 0.5s ease-in-out infinite'
+    : forelimbPose.animClass === 'groomLeftPaw'
+    ? 'pawGroomRub 0.75s ease-in-out infinite'
+    : forelimbPose.animClass === 'waveBothPaws'
+    ? 'pawCheerLeft 0.55s ease-in-out infinite'
+    : forelimbPose.animClass === 'danceAlternatePaws'
+    ? 'pawDanceLeft 0.68s ease-in-out infinite'
+    : forelimbPose.animClass === 'fidgetPaws'
+    ? 'pawFidgetLeft 0.65s ease-in-out infinite'
+    : 'none';
+
+  const rightPawAnimation = isWalking
+    ? 'pawWalkRight 0.5s ease-in-out infinite'
+    : forelimbPose.animClass === 'waveBothPaws'
+    ? 'pawCheerRight 0.55s ease-in-out infinite'
+    : forelimbPose.animClass === 'danceAlternatePaws'
+    ? 'pawDanceRight 0.68s ease-in-out infinite'
+    : forelimbPose.animClass === 'fidgetPaws'
+    ? 'pawFidgetRight 0.65s ease-in-out infinite'
+    : 'none';
+
   // 根据 12 种动作变体选择主身体动画与头部专属动画
   const bodyAnimStyle = useMemo(() => {
+    if (isWalking) return 'spiritWalkBob 0.5s ease-in-out infinite';
     switch (actionVariantId) {
       case 'HAPPY_RAISE_PAWS':
         return 'spiritHappyJump 0.85s ease-in-out infinite';
@@ -181,14 +229,15 @@ export function Spirit2DCharacter({
       default:
         return `spiritFloat ${EMOTION_STATES[emotionState].breathDuration} ease-in-out infinite`;
     }
-  }, [actionVariantId, emotionState]);
+  }, [actionVariantId, emotionState, isWalking]);
 
-  const headExtraAnim =
-    actionVariantId === 'IDLE_LOOK_AROUND'
-      ? 'headLookAround 2.8s ease-in-out infinite'
-      : actionVariantId === 'SLEEPY_HEAD_NOD'
-      ? 'headSleepyNod 2.4s ease-in-out infinite'
-      : 'none';
+  const headExtraAnim = isWalking
+    ? 'headWalkSway 0.5s ease-in-out infinite'
+    : actionVariantId === 'IDLE_LOOK_AROUND'
+    ? 'headLookAround 2.8s ease-in-out infinite'
+    : actionVariantId === 'SLEEPY_HEAD_NOD'
+    ? 'headSleepyNod 2.4s ease-in-out infinite'
+    : 'none';
 
   return (
     <div
@@ -221,11 +270,13 @@ export function Spirit2DCharacter({
       )}
       {/* 平面视图 SVG 容器严格设为适中的 310px × 325px，完整呈现头顶小雏菊与三瓣山竹猫爪 */}
       <div
-        className="transition-transform duration-150 ease-out"
+        className="transition-transform duration-[240ms] ease-out"
         style={{
           width: '310px',
           height: '325px',
-          transform: `scale(${squashStyle.scaleX}, ${squashStyle.scaleY})`
+          transform: `scale(${squashStyle.scaleX}, ${squashStyle.scaleY}) rotate(${
+            isWalking ? (walkDirection < 0 ? -1.8 : 1.8) : 0
+          }deg)`
         }}
       >
         <svg viewBox="0 0 320 320" className="w-full h-full overflow-visible">
@@ -272,12 +323,13 @@ export function Spirit2DCharacter({
               <g
                 style={{
                   transformOrigin: '0px 0px',
-                  animation:
-                    emotionState === 'HAPPY'
-                      ? 'tailWagFast 0.42s ease-in-out infinite'
-                      : emotionState === 'SLEEPY'
-                      ? 'tailWagSlow 3.8s ease-in-out infinite'
-                      : 'tailWagNormal 1.8s ease-in-out infinite'
+                  animation: isWalking
+                    ? 'tailWagFast 0.5s ease-in-out infinite'
+                    : emotionState === 'HAPPY'
+                    ? 'tailWagFast 0.42s ease-in-out infinite'
+                    : emotionState === 'SLEEPY'
+                    ? 'tailWagSlow 3.8s ease-in-out infinite'
+                    : 'tailWagNormal 1.8s ease-in-out infinite'
                 }}
               >
                 <g clipPath="url(#tailTipClip)">
@@ -314,14 +366,7 @@ export function Spirit2DCharacter({
                   <g
                     style={{
                       transformOrigin: '0px 0px',
-                      animation:
-                        emotionState === 'HAPPY'
-                          ? 'catLegLeftHappy 0.42s ease-in-out infinite'
-                          : emotionState === 'SHY'
-                          ? 'catLegLeftShy 2.2s ease-in-out infinite'
-                          : emotionState === 'SLEEPY'
-                          ? 'catLegLeftSleepy 5.4s ease-in-out infinite'
-                          : 'catLegLeftIdle 3.8s ease-in-out infinite'
+                      animation: leftLegAnimation
                     }}
                   >
                     <path
@@ -348,14 +393,7 @@ export function Spirit2DCharacter({
                   <g
                     style={{
                       transformOrigin: '0px 0px',
-                      animation:
-                        emotionState === 'HAPPY'
-                          ? 'catLegRightHappy 0.42s ease-in-out infinite'
-                          : emotionState === 'SHY'
-                          ? 'catLegRightShy 2.2s ease-in-out infinite'
-                          : emotionState === 'SLEEPY'
-                          ? 'catLegRightSleepy 5.4s ease-in-out infinite'
-                          : 'catLegRightIdle 3.8s ease-in-out infinite'
+                      animation: rightLegAnimation
                     }}
                   >
                     <path
@@ -413,16 +451,7 @@ export function Spirit2DCharacter({
                     transformOrigin: '0px 0px',
                     transform: `rotate(${forelimbPose.leftRot}deg)`,
                     transition: 'transform 0.34s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                    animation:
-                      forelimbPose.animClass === 'groomLeftPaw'
-                        ? 'pawGroomRub 0.75s ease-in-out infinite'
-                        : forelimbPose.animClass === 'waveBothPaws'
-                        ? 'pawCheerLeft 0.55s ease-in-out infinite'
-                        : forelimbPose.animClass === 'danceAlternatePaws'
-                        ? 'pawDanceLeft 0.68s ease-in-out infinite'
-                        : forelimbPose.animClass === 'fidgetPaws'
-                        ? 'pawFidgetLeft 0.65s ease-in-out infinite'
-                        : 'none'
+                    animation: leftPawAnimation
                   }}
                 >
                   <path
@@ -457,14 +486,7 @@ export function Spirit2DCharacter({
                     transformOrigin: '0px 0px',
                     transform: `rotate(${forelimbPose.rightRot}deg)`,
                     transition: 'transform 0.34s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                    animation:
-                      forelimbPose.animClass === 'waveBothPaws'
-                        ? 'pawCheerRight 0.55s ease-in-out infinite'
-                        : forelimbPose.animClass === 'danceAlternatePaws'
-                        ? 'pawDanceRight 0.68s ease-in-out infinite'
-                        : forelimbPose.animClass === 'fidgetPaws'
-                        ? 'pawFidgetRight 0.65s ease-in-out infinite'
-                        : 'none'
+                    animation: rightPawAnimation
                   }}
                 >
                   <path

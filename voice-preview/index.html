@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>禾禾 · 童声试听</title>
+  <style>
+    :root {
+      --paper: #f2ead8;
+      --paper-deep: #e7dcc3;
+      --ink: #2f2a23;
+      --ink-soft: #6f6556;
+      --cinnabar: #a8422d;
+      --celadon: #5c7a68;
+      --line: rgba(47, 42, 35, 0.16);
+      --card: rgba(250, 246, 236, 0.78);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { min-height: 100%; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 18% 12%, rgba(255, 252, 244, 0.95), transparent 34%),
+        radial-gradient(circle at 82% 78%, rgba(221, 205, 175, 0.5), transparent 42%),
+        repeating-linear-gradient(0deg, rgba(83, 69, 52, 0.026) 0 1px, transparent 1px 4px),
+        var(--paper);
+      font-family: "Kaiti SC", "STKaiti", "Songti SC", "STSong", serif;
+      line-height: 1.65;
+    }
+
+    .page {
+      width: min(920px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 56px 0 72px;
+    }
+
+    header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      padding-bottom: 22px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      font-family: "Songti SC", "STSong", serif;
+      font-size: 12px;
+      letter-spacing: 0.24em;
+      color: var(--cinnabar);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Songti SC", "STSong", serif;
+      font-size: clamp(30px, 5vw, 44px);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+    }
+
+    .lede {
+      max-width: 470px;
+      margin: 10px 0 0;
+      color: var(--ink-soft);
+      font-size: 15px;
+    }
+
+    .seal {
+      flex: 0 0 auto;
+      width: 72px;
+      height: 72px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(168, 66, 45, 0.55);
+      border-radius: 10px;
+      color: var(--cinnabar);
+      font-family: "Songti SC", "STSong", serif;
+      font-size: 13px;
+      line-height: 1.25;
+      letter-spacing: 0.12em;
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+      transform: rotate(2deg);
+      opacity: 0.92;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 24px 0 18px;
+    }
+
+    .hint {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 13px;
+    }
+
+    button {
+      appearance: none;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      background: var(--ink);
+      color: #f7f1e4;
+      padding: 9px 22px;
+      font-family: inherit;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+    }
+
+    button:hover { background: var(--cinnabar); border-color: var(--cinnabar); }
+    button:active { transform: translateY(1px); }
+    button.playing { background: transparent; color: var(--ink); }
+
+    .list { display: grid; gap: 14px; }
+
+    .sample {
+      display: grid;
+      grid-template-columns: 46px minmax(0, 1fr);
+      gap: 16px;
+      padding: 20px 22px 18px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: 0 14px 34px -26px rgba(47, 42, 35, 0.55);
+      backdrop-filter: blur(4px);
+    }
+
+    .index {
+      font-family: "Songti SC", "STSong", serif;
+      font-size: 22px;
+      color: var(--cinnabar);
+      line-height: 1.1;
+      padding-top: 2px;
+    }
+
+    .head {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 10px 14px;
+    }
+
+    h2 {
+      margin: 0;
+      font-family: "Songti SC", "STSong", serif;
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .tag {
+      color: var(--celadon);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      border: 1px solid rgba(92, 122, 104, 0.35);
+      border-radius: 999px;
+      padding: 1px 9px;
+    }
+
+    .params {
+      margin: 3px 0 0;
+      color: var(--ink-soft);
+      font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+      font-size: 11.5px;
+      letter-spacing: 0.01em;
+    }
+
+    .quote {
+      margin: 10px 0 12px;
+      color: #453d32;
+      font-size: 15px;
+    }
+
+    .line {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    audio {
+      width: 100%;
+      flex: 1 1 auto;
+      filter: sepia(0.18) saturate(0.8);
+    }
+
+    .compare {
+      margin-top: 34px;
+      padding-top: 18px;
+      border-top: 1px dashed var(--line);
+    }
+
+    .compare h3 {
+      margin: 0 0 4px;
+      font-family: "Songti SC", "STSong", serif;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+    }
+
+    .compare p {
+      margin: 0 0 14px;
+      color: var(--ink-soft);
+      font-size: 13px;
+    }
+
+    footer {
+      margin-top: 34px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      color: var(--ink-soft);
+      font-size: 12.5px;
+    }
+
+    footer p { margin: 4px 0; }
+
+    @media (max-width: 620px) {
+      .page { width: min(100% - 24px, 920px); padding-top: 32px; }
+      header { align-items: flex-start; }
+      .seal { display: none; }
+      .sample { grid-template-columns: 32px minmax(0, 1fr); padding: 16px 16px 14px; }
+      .index { font-size: 18px; }
+      .line { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div>
+        <p class="eyebrow">BROOKLING · SPRIG</p>
+        <h1>禾禾 · 童声试听</h1>
+        <p class="lede">同一个音色，按四种情绪调整语速与音高。点击单条播放，或从头依次试听。</p>
+      </div>
+      <div class="seal" aria-hidden="true">灵宠禾禾</div>
+    </header>
+
+    <div class="toolbar">
+      <p class="hint">Edge TTS 预生成样音 · zh-CN-XiaoyiNeural</p>
+      <button id="play-all" type="button">播放全部</button>
+    </div>
+
+    <section class="list" id="samples">
+      <article class="sample">
+        <div class="index">一</div>
+        <div>
+          <div class="head">
+            <h2>开心雀跃 · 高举双爪</h2>
+            <span class="tag">rate +8% · pitch +18Hz</span>
+          </div>
+          <p class="params">zh-CN-XiaoyiNeural</p>
+          <p class="quote">我乖乖把两只软乎乎的小爪爪举高高啦，晃着粉肉垫给你看。</p>
+          <div class="line">
+            <audio controls preload="metadata" src="01-xiaoyi-happy.mp3"></audio>
+          </div>
+        </div>
+      </article>
+
+      <article class="sample">
+        <div class="index">二</div>
+        <div>
+          <div class="head">
+            <h2>待机呼吸 · 侧首眺望</h2>
+            <span class="tag">rate +0% · pitch +15Hz</span>
+          </div>
+          <p class="params">zh-CN-XiaoyiNeural</p>
+          <p class="quote">水榭回廊的微风带着青荷的香气，禾禾正踩着软乎乎的山竹小猫爪陪你赏景呢。</p>
+          <div class="line">
+            <audio controls preload="metadata" src="02-xiaoyi-idle.mp3"></audio>
+          </div>
+        </div>
+      </article>
+
+      <article class="sample">
+        <div class="index">三</div>
+        <div>
+          <div class="head">
+            <h2>委屈害羞 · 拢爪掩面</h2>
+            <span class="tag">rate -6% · pitch +10Hz</span>
+          </div>
+          <p class="params">zh-CN-XiaoyiNeural</p>
+          <p class="quote">呜，突然被你这么温柔地摸摸头，禾禾的脸颊都像天边的晚霞一样红透啦。</p>
+          <div class="line">
+            <audio controls preload="metadata" src="03-xiaoyi-shy.mp3"></audio>
+          </div>
+        </div>
+      </article>
+
+      <article class="sample">
+        <div class="index">四</div>
+        <div>
+          <div class="head">
+            <h2>犯困打盹 · 鼻息泡泡</h2>
+            <span class="tag">rate -12% · pitch +5Hz</span>
+          </div>
+          <p class="params">zh-CN-XiaoyiNeural</p>
+          <p class="quote">呼噜，月光洒在临水回廊上好安静呀，禾禾闭着眼睛吹出了圆圆的睡眠泡泡，晚安好梦。</p>
+          <div class="line">
+            <audio controls preload="metadata" src="04-xiaoyi-sleepy.mp3"></audio>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="compare">
+      <h3>同句音色对照</h3>
+      <p>同一句待机台词，比较成人暖声升调与原生少年音色，判断哪一种更接近禾禾。</p>
+      <div class="list">
+        <article class="sample">
+          <div class="index">五</div>
+          <div>
+            <div class="head">
+              <h2>晓晓 · 成人暖声升调</h2>
+              <span class="tag">rate +0% · pitch +30Hz</span>
+            </div>
+            <p class="params">zh-CN-XiaoxiaoNeural</p>
+            <p class="quote">水榭回廊的微风带着青荷的香气，禾禾正踩着软乎乎的山竹小猫爪陪你赏景呢。</p>
+            <div class="line">
+              <audio controls preload="metadata" src="05-xiaoxiao-idle.mp3"></audio>
+            </div>
+          </div>
+        </article>
+
+        <article class="sample">
+          <div class="index">六</div>
+          <div>
+            <div class="head">
+              <h2>云夏 · 元气少年</h2>
+              <span class="tag">rate +0% · pitch +0Hz</span>
+            </div>
+            <p class="params">zh-CN-YunxiaNeural</p>
+            <p class="quote">水榭回廊的微风带着青荷的香气，禾禾正踩着软乎乎的山竹小猫爪陪你赏景呢。</p>
+            <div class="line">
+              <audio controls preload="metadata" src="06-yunxia-idle.mp3?v=2"></audio>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+      <p>说明：Edge 当前音色列表里已没有原生女童 XiaoyouNeural，这里用 XiaoyiNeural 升调接近童声。</p>
+      <p>正式接入建议改用 Azure 官方童声或定制音色，并把固定台词预生成为音频文件、保留 Web Speech API 兜底。</p>
+    </footer>
+  </main>
+
+  <script>
+    const audios = Array.from(document.querySelectorAll('audio'));
+    const playAllBtn = document.getElementById('play-all');
+    let queueIndex = -1;
+
+    audios.forEach((audio, i) => {
+      audio.addEventListener('play', () => {
+        audios.forEach((other) => {
+          if (other !== audio) other.pause();
+        });
+        if (queueIndex !== i) stopQueue(false);
+      });
+      audio.addEventListener('ended', () => {
+        if (queueIndex === i && i + 1 < audios.length) {
+          queueIndex = i + 1;
+          audios[queueIndex].currentTime = 0;
+          audios[queueIndex].play();
+        } else if (queueIndex === i) {
+          stopQueue(true);
+        }
+      });
+    });
+
+    function stopQueue(resetLabel) {
+      queueIndex = -1;
+      if (resetLabel !== false) {
+        playAllBtn.textContent = '播放全部';
+        playAllBtn.classList.remove('playing');
+      }
+    }
+
+    playAllBtn.addEventListener('click', () => {
+      if (queueIndex >= 0) {
+        audios.forEach((audio) => audio.pause());
+        stopQueue(true);
+        return;
+      }
+      queueIndex = 0;
+      playAllBtn.textContent = '停止播放';
+      playAllBtn.classList.add('playing');
+      audios.forEach((audio) => { audio.currentTime = 0; });
+      audios[0].play();
+    });
+  </script>
+</body>
+</html>

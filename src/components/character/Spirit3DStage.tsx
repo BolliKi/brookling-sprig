@@ -17,6 +17,8 @@ interface ThreeFieldSpiritStageProps {
   reconState: ReconState
   isSpeaking: boolean
   mouthOpenRef: MutableRefObject<number>
+  isWalking?: boolean
+  walkDirection?: number
   onOrbitDrag?: (deltaX: number) => void
   onEngineReady?: () => void
 }
@@ -36,6 +38,8 @@ export function ThreeFieldSpiritStage({
   reconState,
   isSpeaking,
   mouthOpenRef,
+  isWalking = false,
+  walkDirection = 0,
   onOrbitDrag,
   onEngineReady
 }: ThreeFieldSpiritStageProps) {
@@ -56,8 +60,11 @@ export function ThreeFieldSpiritStage({
     isBlinking,
     reconState,
     isSpeaking,
+    isWalking,
+    walkDirection,
     impulseY: 0,
-    impulseSpin: 0
+    impulseSpin: 0,
+    walkFacing: 0
   });
 
   useEffect(() => {
@@ -68,6 +75,8 @@ export function ThreeFieldSpiritStage({
     stateRef.current.isBlinking = isBlinking;
     stateRef.current.reconState = reconState;
     stateRef.current.isSpeaking = isSpeaking;
+    stateRef.current.isWalking = isWalking;
+    stateRef.current.walkDirection = walkDirection;
   }, [
     emotionState,
     actionVariantId,
@@ -75,7 +84,9 @@ export function ThreeFieldSpiritStage({
     mouseOffset,
     isBlinking,
     reconState,
-    isSpeaking
+    isSpeaking,
+    isWalking,
+    walkDirection
   ]);
 
   useEffect(() => {
@@ -672,7 +683,9 @@ export function ThreeFieldSpiritStage({
             mouseOffset: curMouse,
             isBlinking: curBlinking,
             reconState: curRecon,
-            isSpeaking: curSpeaking
+            isSpeaking: curSpeaking,
+            isWalking: curWalking,
+            walkDirection: curWalkDirection
           } = stateRef.current;
           const curMouthOpen = mouthOpenRef ? mouthOpenRef.current : 0;
 
@@ -955,6 +968,40 @@ export function ThreeFieldSpiritStage({
             }
           }
 
+          // ==========================================================
+          // 对话展开 / 收起时的侧步行走：覆盖当前动作，走到新位置
+          // ==========================================================
+          if (curWalking) {
+            const walkDir = curWalkDirection < 0 ? -1 : 1;
+            const walkPhase = elapsed * 9.4;
+            const stride = Math.sin(walkPhase);
+            const stepLift = Math.abs(Math.sin(walkPhase));
+
+            rootTargetY = stepLift * 0.075 + stateRef.current.impulseY;
+            rootTargetRotZ = Math.sin(walkPhase * 2) * 0.018 - walkDir * 0.05;
+            headTargetRotX = 0.04;
+            headTargetRotY = walkDir * 0.12 + Math.sin(walkPhase) * 0.04;
+            headTargetRotZ = -walkDir * 0.045;
+
+            leftEarRotZ = 0.3 + Math.sin(walkPhase) * 0.16;
+            rightEarRotZ = -0.3 - Math.sin(walkPhase + 0.6) * 0.16;
+            leftEarRotX = -0.06;
+            rightEarRotX = -0.06;
+
+            tailSwingSpeed = 10.5;
+            tailSwingAmp = 0.32;
+
+            leftArmRotZ = -0.26;
+            rightArmRotZ = 0.26;
+            leftArmRotX = -0.18 - stride * 0.55;
+            rightArmRotX = -0.18 + stride * 0.55;
+
+            leftLegRotX = stride * 0.45;
+            rightLegRotX = -stride * 0.45;
+            leftLegRotZ = -0.05;
+            rightLegRotZ = 0.05;
+          }
+
           spiritRoot.position.y += (rootTargetY - spiritRoot.position.y) * 0.14;
           spiritRoot.rotation.z += (rootTargetRotZ - spiritRoot.rotation.z) * 0.14;
           const shadowScale = Math.max(0.72, 1.12 - spiritRoot.position.y * 0.75);
@@ -986,8 +1033,15 @@ export function ThreeFieldSpiritStage({
           leftEarPivot.rotation.x += (leftEarRotX - leftEarPivot.rotation.x) * 0.14;
           rightEarPivot.rotation.x += (rightEarRotX - rightEarPivot.rotation.x) * 0.14;
 
+          const walkFacingTarget = curWalking
+            ? (curWalkDirection < 0 ? -1 : 1) * 0.42
+            : 0;
+          stateRef.current.walkFacing +=
+            (walkFacingTarget - stateRef.current.walkFacing) * 0.14;
+
           dragCurrentRotY += (dragTargetRotY - dragCurrentRotY) * 0.12;
-          dragRoot.rotation.y = dragCurrentRotY + stateRef.current.impulseSpin;
+          dragRoot.rotation.y =
+            dragCurrentRotY + stateRef.current.impulseSpin + stateRef.current.walkFacing;
 
           renderer.render(scene, camera);
         };

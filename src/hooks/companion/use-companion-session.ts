@@ -11,6 +11,7 @@ import { useSystemToast } from '@hooks/companion/use-system-toast'
 import { useTimeOfDayTheme } from '@hooks/scene/use-time-of-day-theme'
 import { useSpeechSynthesis } from '@hooks/speech/use-speech-synthesis'
 
+import { BELL_SPEECH } from '@configs/companion-seeds'
 import { EMOTION_STATES } from '@configs/emotions'
 import { LIGHTING_THEMES } from '@configs/lighting-themes'
 import { MOOD_ATMOSPHERES } from '@configs/mood-atmospheres'
@@ -83,9 +84,7 @@ export function useCompanionSession() {
     speakChildVoice,
     stopChildSpeech,
     handleSelectChildPreset,
-    childVoicePreset,
-    ttsPitchOverride,
-    ttsRateOverride
+    childVoicePreset
   } = speech
 
   const handleMorphComplete = useCallback(() => {
@@ -385,24 +384,16 @@ export function useCompanionSession() {
     appendLog(
       '远程调试',
       `试听儿童语音（${CHILD_VOICE_PRESETS[childVoicePreset].label}）`,
-      `音调 ${ttsPitchOverride.toFixed(2)} 倍，语速 ${ttsRateOverride.toFixed(2)} 倍`
+      '优先播放预生成音频；未命中或播放失败时回退实时合成'
     )
-  }, [
-    messages,
-    speakChildVoice,
-    emotionState,
-    appendLog,
-    childVoicePreset,
-    ttsPitchOverride,
-    ttsRateOverride
-  ])
+  }, [messages, speakChildVoice, emotionState, appendLog, childVoicePreset])
 
   // 轻触檐下青铜风铎：古琴泛音 + 童声回应
   const handleRingBronzeBell = useCallback(() => {
     if (!canStartAction()) return
 
     playClassicalChime('BRONZE_BELL', soundEnabled)
-    const bellSpeech = '叮——檐下的青铜风铎被清风拂响了，像古琴的泛音一样清澈好听呢。'
+    const bellSpeech = BELL_SPEECH
     pushTurn(
       null,
       bellSpeech,

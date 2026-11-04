@@ -217,6 +217,14 @@ export function ThreeLandscapeStage({
         container.innerHTML = ''
         container.appendChild(renderer.domElement)
 
+        let contextLost = false
+        renderer.domElement.addEventListener('webglcontextlost', (event: Event) => {
+          event.preventDefault()
+          contextLost = true
+          setReady(false)
+          readyCallbackRef.current?.(false)
+        })
+
         const vFov = THREE.MathUtils.degToRad(CAMERA_FOV)
         const cameraPitch = Math.atan((CAMERA_LOOK_Y - CAMERA_Y) / CAMERA_RADIUS)
         const camera = new THREE.PerspectiveCamera(CAMERA_FOV, width / height, 0.1, 500)
@@ -519,15 +527,15 @@ export function ThreeLandscapeStage({
           leafSeed = (leafSeed * 1664525 + 1013904223) % 4294967296
           return leafSeed / 4294967296
         }
-        for (let i = 0; i < 34; i += 1) {
+        for (let i = 0; i < 58; i += 1) {
           const leaf = new THREE.Mesh(leafGeometry, bambooLeafMaterial)
-          const y = 2.3 + nextLeafRandom() * 3.6
-          const x = -0.65 + nextLeafRandom() * 1.5
-          const z = -0.28 + nextLeafRandom() * 0.56
+          const y = 2.0 + nextLeafRandom() * 4.0
+          const x = -0.85 + nextLeafRandom() * 1.9
+          const z = -0.34 + nextLeafRandom() * 0.68
           leaf.position.set(x, y, z)
-          leaf.rotation.z = 0.35 + nextLeafRandom() * 1.5
+          leaf.rotation.z = 0.3 + nextLeafRandom() * 1.7
           leaf.rotation.y = -0.5 + nextLeafRandom() * 1.0
-          const scale = 0.75 + nextLeafRandom() * 0.65
+          const scale = 0.7 + nextLeafRandom() * 0.8
           leaf.scale.setScalar(scale)
           bambooGroup.add(leaf)
         }
@@ -774,7 +782,7 @@ export function ThreeLandscapeStage({
         let currentThemeId = pendingTheme.id
 
         const animate = () => {
-          if (!isMounted) return
+          if (!isMounted || contextLost) return
           animationFrameId = requestAnimationFrame(animate)
 
           const delta = Math.min(clock.getDelta(), 0.05)
@@ -837,7 +845,7 @@ export function ThreeLandscapeStage({
             flockDrift = -7
           }
           flockGroup.position.x = (-17 + flockDrift) * nearFieldScale
-          birds.forEach((bird, index) => {
+          birds.forEach((bird) => {
             const flap = Math.sin(elapsed * 4.6 + bird.phase) * 0.12
             const positions = bird.positions
             positions[0] = -0.45
@@ -850,7 +858,6 @@ export function ThreeLandscapeStage({
             positions[7] = 0.14 + flap
             positions[8] = 0
             bird.geometry.attributes.position.needsUpdate = true
-            bird.line.visible = index < 5
           })
 
           farMist.position.x = Math.sin(elapsed * 0.05) * 3 * nearFieldScale
@@ -873,6 +880,7 @@ export function ThreeLandscapeStage({
 
         animate()
       } catch (error) {
+        console.warn('[ThreeLandscapeStage] 立体背景初始化失败，回落到平面画卷', error)
         setReady(false)
         readyCallbackRef.current?.(false)
       }

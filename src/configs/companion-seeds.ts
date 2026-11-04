@@ -23,6 +23,10 @@ export const createInitialEventLogs = (): EventLog[] => [
   }
 ]
 
+/** 檐下青铜风铎的固定回应；预生成音频与实时合成都复用这一句 */
+export const BELL_SPEECH =
+  '叮——檐下的青铜风铎被清风拂响了，像古琴的泛音一样清澈好听呢。'
+
 export const INITIAL_SYSTEM_TOAST: SystemToast = {
   id: 1,
   text: '水榭笺注：点击禾禾或快捷按钮，就能看到不同的动作与回应'

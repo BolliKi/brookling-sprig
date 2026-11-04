@@ -1,0 +1,363 @@
+{
+  "version": 1,
+  "generatedAt": "2026-11-04T16:06:00.298Z",
+  "presets": {
+    "CRISP_GIRL": {
+      "voice": "zh-CN-XiaoyiNeural",
+      "pitchHz": 15,
+      "ratePercent": 2,
+      "entries": {
+        "IDLE": {
+          "水榭回廊的微风带着青荷的香气，禾禾正踩着软乎乎的山竹小猫爪陪你赏景呢。": {
+            "file": "/voice/crisp-girl/idle-7bee3b5bf3ab.mp3",
+            "duration": 7.896,
+            "kind": "emotion",
+            "source": "IDLE/IDLE_BREATH#0"
+          },
+          "远处的乌篷小舟划过平湖烟水，只要站在你身旁，禾禾心里就觉得格外安宁。": {
+            "file": "/voice/crisp-girl/idle-c01f2452261b.mp3",
+            "duration": 7.44,
+            "kind": "emotion",
+            "source": "IDLE/IDLE_BREATH#1"
+          },
+          "听着檐下青铜风铎的轻响，禾禾的大尾巴也跟着慢悠悠地晃动起来啦。": {
+            "file": "/voice/crisp-girl/idle-1edbaee14876.mp3",
+            "duration": 6.408,
+            "kind": "emotion",
+            "source": "IDLE/IDLE_BREATH#2"
+          },
+          "咦？远山古亭那边飞过一行白鹭，禾禾歪着脑袋竖起长耳朵看了好久呢。": {
+            "file": "/voice/crisp-girl/idle-4b7b1b038f4c.mp3",
+            "duration": 7.584,
+            "kind": "emotion",
+            "source": "IDLE/IDLE_LOOK_AROUND#0"
+          },
+          "禾禾左边看看墨竹疏影，右边瞧瞧湖面青莲，每一处风景都想指给你看。": {
+            "file": "/voice/crisp-girl/idle-6af24af08b85.mp3",
+            "duration": 7.176,
+            "kind": "emotion",
+            "source": "IDLE/IDLE_LOOK_AROUND#1"
+          },
+          "山间的云雾又漫上来了，禾禾好奇地探出小脑袋，替你听听风里的声音。": {
+            "file": "/voice/crisp-girl/idle-59b4cc2caf74.mp3",
+            "duration": 6.816,
+            "kind": "emotion",
+            "source": "IDLE/IDLE_LOOK_AROUND#2"
+          },
+          "禾禾抬起左前爪蹭了蹭圆润的脸颊，把绒毛理得蓬松顺滑，随时准备被你摸摸头。": {
+            "file": "/voice/crisp-girl/idle-1a90e20a42d5.mp3",
+            "duration": 7.896,
+            "kind": "emotion",
+            "source": "IDLE/IDLE_GROOM_PAW#0"
+          },
+          "你看你看，禾禾举起一只小猫爪晃了晃粉红肉垫，是在向你打招呼呀。": {
+            "file": "/voice/crisp-girl/idle-6e65de3bc358.mp3",
+            "duration": 6.432,
+            "kind": "emotion",
+            "source": "IDLE/IDLE_GROOM_PAW#1"
+          },
+          "趁着阳光温润，禾禾乖巧地舔了舔小爪爪，把头顶的小雏菊也照料得精神奕奕。": {
+            "file": "/voice/crisp-girl/idle-fa1362d8c23b.mp3",
+            "duration": 7.584,
+            "kind": "emotion",
+            "source": "IDLE/IDLE_GROOM_PAW#2"
+          },
+          "禾禾乖巧地抬起左前爪蹭了蹭圆脸蛋，把全身绒毛理得蓬松顺滑，干干净净地陪着你。": {
+            "file": "/voice/crisp-girl/idle-62d6358403ac.mp3",
+            "duration": 8.04,
+            "kind": "intent",
+            "source": "intent:理毛"
+          },
+          "禾禾歪着小脑袋竖起长耳朵，陪你一起眺望平湖上的乌篷船与远山云雾，风声真好听呀。": {
+            "file": "/voice/crisp-girl/idle-f6ffab6de978.mp3",
+            "duration": 8.472,
+            "kind": "intent",
+            "source": "intent:看风景"
+          },
+          "叮——檐下的青铜风铎被清风拂响了，像古琴的泛音一样清澈好听呢。": {
+            "file": "/voice/crisp-girl/idle-52ff6f76bee9.mp3",
+            "duration": 6.528,
+            "kind": "bell",
+            "source": "bell:风铎"
+          }
+        },
+        "HAPPY": {
+          "我乖乖把两只软乎乎的小爪爪举高高啦，晃着粉肉垫给你看～": {
+            "file": "/voice/crisp-girl/happy-3720af31c775.mp3",
+            "duration": 5.592,
+            "kind": "emotion",
+            "source": "HAPPY/HAPPY_RAISE_PAWS#0"
+          },
+          "嘿嘿，听出来你心情超好呀～禾禾也把两只小猫爪高高举起为你欢呼！": {
+            "file": "/voice/crisp-girl/happy-8e03896b16a4.mp3",
+            "duration": 6.768,
+            "kind": "emotion",
+            "source": "HAPPY/HAPPY_RAISE_PAWS#1"
+          },
+          "双爪举高高！禾禾踩着小猫后腿一颠一颠地踢踏，满眼都是开心的笑意。": {
+            "file": "/voice/crisp-girl/happy-4431f16602a0.mp3",
+            "duration": 6.816,
+            "kind": "emotion",
+            "source": "HAPPY/HAPPY_RAISE_PAWS#2"
+          },
+          "太好啦！禾禾在水榭回廊上左摇右摆跳起了小猫舞，大尾巴摇得像拨浪鼓一样！": {
+            "file": "/voice/crisp-girl/happy-129d3869a40d.mp3",
+            "duration": 7.632,
+            "kind": "emotion",
+            "source": "HAPPY/HAPPY_DANCE_SPIN#0"
+          },
+          "听到你的夸奖，禾禾忍不住迈着山竹小猫爪轻快地交替踏步，连围巾都跟着飞扬起来。": {
+            "file": "/voice/crisp-girl/happy-77f2fb59f6fd.mp3",
+            "duration": 7.2,
+            "kind": "emotion",
+            "source": "HAPPY/HAPPY_DANCE_SPIN#1"
+          },
+          "今天真是好日子，禾禾挥舞着两只小前爪原地转圈跳舞，把快乐都分给你！": {
+            "file": "/voice/crisp-girl/happy-8deedec0389a.mp3",
+            "duration": 6.888,
+            "kind": "emotion",
+            "source": "HAPPY/HAPPY_DANCE_SPIN#2"
+          },
+          "好耶！禾禾开心地从青石板上蹦了起来，头顶的小雏菊都差点碰到屋檐下的风铎啦！": {
+            "file": "/voice/crisp-girl/happy-392dad565c79.mp3",
+            "duration": 7.752,
+            "kind": "emotion",
+            "source": "HAPPY/HAPPY_STAR_JUMP#0"
+          },
+          "被你喜欢的感觉就像暖阳照进水榭，禾禾欢快地连蹦带跳，元气满满！": {
+            "file": "/voice/crisp-girl/happy-c8915ec9556a.mp3",
+            "duration": 6.48,
+            "kind": "emotion",
+            "source": "HAPPY/HAPPY_STAR_JUMP#1"
+          },
+          "看禾禾的凌空一跃！两只后腿充满弹性地蹦跳，心里甜滋滋的。": {
+            "file": "/voice/crisp-girl/happy-cc15f0bb09b3.mp3",
+            "duration": 6.12,
+            "kind": "emotion",
+            "source": "HAPPY/HAPPY_STAR_JUMP#2"
+          },
+          "收到指令啦！我乖乖把两只软乎乎的小爪爪举高高，亮出粉红肉垫给你看～": {
+            "file": "/voice/crisp-girl/happy-b30b3ff3441e.mp3",
+            "duration": 6.648,
+            "kind": "intent",
+            "source": "intent:举起双手"
+          },
+          "这就为你跳支舞！禾禾踩着三瓣山竹小猫爪欢快踏步，大尾巴也跟着节奏摇起来啦～": {
+            "file": "/voice/crisp-girl/happy-2870ebbc889b.mp3",
+            "duration": 7.56,
+            "kind": "intent",
+            "source": "intent:跳支舞"
+          },
+          "看禾禾凌空一跃！两只小猫后腿用力蹦起，头顶的小雏菊都迎着水榭清风飞扬起来啦！": {
+            "file": "/voice/crisp-girl/happy-eb19a01ad662.mp3",
+            "duration": 7.728,
+            "kind": "intent",
+            "source": "intent:跳一下"
+          },
+          "听出来你今天奔波得好辛苦呀……快坐到水榭回廊下歇一歇，禾禾把软乎乎的粉肉垫举高高给你捏捏解乏！": {
+            "file": "/voice/crisp-girl/happy-9037c0c7e9f4.mp3",
+            "duration": 9.048,
+            "kind": "intent",
+            "source": "intent:好累"
+          },
+          "哇！感受到你满满的喜悦啦～禾禾也替你开心得原地跳起小猫舞，快来和禾禾分享这份好心情吧！": {
+            "file": "/voice/crisp-girl/happy-ea3f8c794ec1.mp3",
+            "duration": 8.976,
+            "kind": "intent",
+            "source": "intent:太好了"
+          },
+          "嘿嘿，被你夸奖的感觉比春天的阳光还要暖和，禾禾开心地连蹦带跳，尾巴摇个不停！": {
+            "file": "/voice/crisp-girl/happy-fe26885da4d2.mp3",
+            "duration": 7.92,
+            "kind": "intent",
+            "source": "intent:夸夸你"
+          },
+          "叮——檐下的青铜风铎被清风拂响了，像古琴的泛音一样清澈好听呢。": {
+            "file": "/voice/crisp-girl/happy-5a55aab66189.mp3",
+            "duration": 6.168,
+            "kind": "bell",
+            "source": "bell:风铎"
+          },
+          "你回来啦～禾禾一直在水榭等你，今天想一起做点什么呀？": {
+            "file": "/voice/crisp-girl/happy-3ea8cfa186b5.mp3",
+            "duration": 5.424,
+            "kind": "seed",
+            "source": "seed:turn-init-1"
+          }
+        },
+        "SHY": {
+          "呜……突然被你这么温柔地摸摸头，禾禾的脸颊都像天边的晚霞一样红透啦。": {
+            "file": "/voice/crisp-girl/shy-1f2e64ac8d22.mp3",
+            "duration": 7.416,
+            "kind": "emotion",
+            "source": "SHY/SHY_COVER_CHEEK#0"
+          },
+          "禾禾不好意思地把两只小前爪拢在发烫的脸蛋旁，长耳朵也羞怯地垂了下来。": {
+            "file": "/voice/crisp-girl/shy-dadcea6062fa.mp3",
+            "duration": 7.848,
+            "kind": "emotion",
+            "source": "SHY/SHY_COVER_CHEEK#1"
+          },
+          "你这么近地看着禾禾，禾禾害羞得把山竹小猫爪往里扣了扣，心跳都变快了。": {
+            "file": "/voice/crisp-girl/shy-6d67bade56dd.mp3",
+            "duration": 7.752,
+            "kind": "emotion",
+            "source": "SHY/SHY_COVER_CHEEK#2"
+          },
+          "别笑话禾禾嘛……禾禾悄悄把身子偏过去一点，用大尾巴遮住自己，只敢偷偷瞄你一眼。": {
+            "file": "/voice/crisp-girl/shy-44e9a10d878a.mp3",
+            "duration": 9.12,
+            "kind": "emotion",
+            "source": "SHY/SHY_HIDE_TAIL#0"
+          },
+          "唔，被你说中心事啦，禾禾侧过小脑袋躲在柿染围巾后面，耳朵尖都红了。": {
+            "file": "/voice/crisp-girl/shy-0a188d61b0a7.mp3",
+            "duration": 7.632,
+            "kind": "emotion",
+            "source": "SHY/SHY_HIDE_TAIL#1"
+          },
+          "禾禾把琥珀色的大尾巴卷到身前，害羞地眨巴着大眼睛，想要你再哄哄我。": {
+            "file": "/voice/crisp-girl/shy-6c65e974b5f9.mp3",
+            "duration": 7.512,
+            "kind": "emotion",
+            "source": "SHY/SHY_HIDE_TAIL#2"
+          },
+          "禾禾低下头让小雏菊垂在额前，两只粉肉垫小前爪在肚皮前轻轻对指碰了碰。": {
+            "file": "/voice/crisp-girl/shy-3248870e6ab2.mp3",
+            "duration": 8.928,
+            "kind": "emotion",
+            "source": "SHY/SHY_FIDGET_PAWS#0"
+          },
+          "刚睡醒就被你逗，禾禾委屈又害羞地并拢两只后脚爪，小声嘟囔着向你撒娇。": {
+            "file": "/voice/crisp-girl/shy-3f464e619787.mp3",
+            "duration": 7.584,
+            "kind": "emotion",
+            "source": "SHY/SHY_FIDGET_PAWS#1"
+          },
+          "只要你再多夸禾禾一句，禾禾就不害羞地低着头对小爪爪啦。": {
+            "file": "/voice/crisp-girl/shy-d18485a8405c.mp3",
+            "duration": 6.216,
+            "kind": "emotion",
+            "source": "SHY/SHY_FIDGET_PAWS#2"
+          },
+          "呜……被你这么温柔地对待，禾禾害羞得用两只小猫爪捂住发烫的脸颊，耳朵也垂下来啦。": {
+            "file": "/voice/crisp-girl/shy-1016c061e239.mp3",
+            "duration": 8.352,
+            "kind": "intent",
+            "source": "intent:摸摸头"
+          },
+          "禾禾不好意思地把身子侧过去，把琥珀色大尾巴卷到身前，只敢露出圆眼睛偷偷瞄你一眼。": {
+            "file": "/voice/crisp-girl/shy-614ef2c50322.mp3",
+            "duration": 9.6,
+            "kind": "intent",
+            "source": "intent:藏尾巴"
+          },
+          "禾禾乖乖低下小脑袋，两只粉肉垫前爪在暖杏色肚皮前轻轻对指碰了碰，小声向你撒娇。": {
+            "file": "/voice/crisp-girl/shy-e7c217de4206.mp3",
+            "duration": 9.456,
+            "kind": "intent",
+            "source": "intent:对手指"
+          },
+          "抱抱你，看到你难过，禾禾心里也跟着酸酸的……禾禾会一直守在回廊边陪着你，把所有的温柔都留给你。": {
+            "file": "/voice/crisp-girl/shy-b9dc89ef92c2.mp3",
+            "duration": 10.008,
+            "kind": "intent",
+            "source": "intent:难过"
+          },
+          "呀……你突然说这么亲昵的话，禾禾害羞得耳朵尖都变成晚霞色啦，只敢捂着脸偷偷看你。": {
+            "file": "/voice/crisp-girl/shy-a579d72b117f.mp3",
+            "duration": 8.616,
+            "kind": "intent",
+            "source": "intent:亲亲"
+          },
+          "叮——檐下的青铜风铎被清风拂响了，像古琴的泛音一样清澈好听呢。": {
+            "file": "/voice/crisp-girl/shy-b1bf1bbe5750.mp3",
+            "duration": 7.056,
+            "kind": "bell",
+            "source": "bell:风铎"
+          }
+        },
+        "SLEEPY": {
+          "呼噜……月光洒在临水回廊上好安静呀，禾禾闭着眼睛吹出了圆圆的睡眠泡泡，晚安好梦。": {
+            "file": "/voice/crisp-girl/sleepy-73b3de1f8f89.mp3",
+            "duration": 10.464,
+            "kind": "emotion",
+            "source": "SLEEPY/SLEEPY_BUBBLE#0"
+          },
+          "听着湖面传来的轻柔水声，禾禾放松小猫腿站在水榭里安心打起了小呼噜。": {
+            "file": "/voice/crisp-girl/sleepy-2f7cfa4b9357.mp3",
+            "duration": 8.544,
+            "kind": "emotion",
+            "source": "SLEEPY/SLEEPY_BUBBLE#1"
+          },
+          "夜色温柔，水榭的宫灯已经点亮，禾禾伴着你的呼吸声慢慢进入甜甜的梦乡啦。": {
+            "file": "/voice/crisp-girl/sleepy-fe99438ae3dd.mp3",
+            "duration": 8.736,
+            "kind": "emotion",
+            "source": "SLEEPY/SLEEPY_BUBBLE#2"
+          },
+          "唔……眼皮越来越沉了，禾禾的小脑袋一点一点地打着瞌睡，还想再多陪你一会儿呢。": {
+            "file": "/voice/crisp-girl/sleepy-9bdbcf6e5964.mp3",
+            "duration": 8.496,
+            "kind": "emotion",
+            "source": "SLEEPY/SLEEPY_HEAD_NOD#0"
+          },
+          "禾禾迷迷糊糊地点了点头，差点晃了一下，连忙稳住山竹小猫爪继续眯着眼打盹。": {
+            "file": "/voice/crisp-girl/sleepy-b7d16c84b894.mp3",
+            "duration": 8.88,
+            "kind": "emotion",
+            "source": "SLEEPY/SLEEPY_HEAD_NOD#1"
+          },
+          "晚风吹得人暖洋洋的，禾禾耷拉着长耳朵，脑袋随着呼吸一沉一抬地犯困啦。": {
+            "file": "/voice/crisp-girl/sleepy-f59426341c94.mp3",
+            "duration": 8.496,
+            "kind": "emotion",
+            "source": "SLEEPY/SLEEPY_HEAD_NOD#2"
+          },
+          "哈啊——禾禾高高伸了一个大大的小猫懒腰，张开小嘴打了个软绵绵的哈欠。": {
+            "file": "/voice/crisp-girl/sleepy-2893ec4d63a3.mp3",
+            "duration": 8.136,
+            "kind": "emotion",
+            "source": "SLEEPY/SLEEPY_STRETCH_YAWN#0"
+          },
+          "伸展一下软乎乎的四肢，禾禾揉了揉困倦的眼睛，准备在古亭水榭里睡个好觉啦。": {
+            "file": "/voice/crisp-girl/sleepy-b4c38b54a1ff.mp3",
+            "duration": 8.64,
+            "kind": "emotion",
+            "source": "SLEEPY/SLEEPY_STRETCH_YAWN#1"
+          },
+          "打完这个长长的哈欠，全身都变得轻飘飘的，祝你今夜也有一个清朗的好梦。": {
+            "file": "/voice/crisp-girl/sleepy-dbf70c178361.mp3",
+            "duration": 7.968,
+            "kind": "emotion",
+            "source": "SLEEPY/SLEEPY_STRETCH_YAWN#2"
+          },
+          "哈啊——禾禾听话地把两只小猫爪高高伸展开，结结实实打了一个软绵绵的大哈欠。": {
+            "file": "/voice/crisp-girl/sleepy-57c861d09ec7.mp3",
+            "duration": 9.24,
+            "kind": "intent",
+            "source": "intent:打哈欠"
+          },
+          "唔……禾禾闭上眼睛，小脑袋像小鸡啄米一样一点一点地打着盹，努力撑着眼皮陪你呢。": {
+            "file": "/voice/crisp-girl/sleepy-4059f6d651ea.mp3",
+            "duration": 9,
+            "kind": "intent",
+            "source": "intent:点头打盹"
+          },
+          "呼噜……既然困了就放下心事歇息吧，禾禾吹着圆圆的鼻息泡泡守在床边，伴你入一个山水清朗的好梦。": {
+            "file": "/voice/crisp-girl/sleepy-ee58be0f2b2b.mp3",
+            "duration": 10.848,
+            "kind": "intent",
+            "source": "intent:晚安"
+          },
+          "叮——檐下的青铜风铎被清风拂响了，像古琴的泛音一样清澈好听呢。": {
+            "file": "/voice/crisp-girl/sleepy-741f2299215f.mp3",
+            "duration": 7.56,
+            "kind": "bell",
+            "source": "bell:风铎"
+          }
+        }
+      }
+    }
+  }
+}

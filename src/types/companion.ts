@@ -73,6 +73,32 @@ export interface ChildVoicePreset {
   desc: string
 }
 
+/** 预生成语音清单中的一段固定台词音频 */
+export interface VoiceClip {
+  /** public 下的绝对路径，例如 /voice/crisp-girl/happy-a1b2c3d4e5f6.mp3 */
+  file: string
+  /** 音频时长（秒），用于元数据就绪前驱动口型 */
+  duration: number
+  kind: 'emotion' | 'intent' | 'bell' | 'seed'
+  /** 生成来源，便于排查某句台词来自哪个配置 */
+  source: string
+}
+
+/** 单个童声预设的预生成音频清单 */
+export interface VoicePresetManifest {
+  voice: string
+  pitchHz: number
+  ratePercent: number
+  entries: Partial<Record<EmotionKey, Record<string, VoiceClip>>>
+}
+
+/** 预生成语音清单：按童声预设分组，按情绪、原始台词索引 */
+export interface VoiceManifest {
+  version: number
+  generatedAt: string
+  presets: Partial<Record<ChildVoicePresetKey, VoicePresetManifest>>
+}
+
 /** 情绪对童声语调的微调系数 */
 export interface EmotionVoiceModifier {
   pitchDelta: number
