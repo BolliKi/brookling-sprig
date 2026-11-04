@@ -12,6 +12,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev:verify"],
       "port": 3014
+    },
+    {
+      "name": "static-out",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "3020", "--directory", "out"],
+      "port": 3020
     }
   ]
 }

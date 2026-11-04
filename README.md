@@ -55,9 +55,30 @@ npm run dev
 
 其他脚本同理替换为 `npm run <script>`。
 
+## 部署到 Cloudflare Pages
+
+项目为纯前端静态站点，可直接托管在 Cloudflare Pages：
+
+1. Cloudflare 控制台 → **Workers 和 Pages** → **创建** → **Pages** → **连接到 Git**，选择 `BolliKi/brookling-sprig` 仓库。
+2. 构建设置按下表填写：
+
+   | 字段 | 值 |
+   | --- | --- |
+   | 框架预设 | `无`（None） |
+   | 构建命令 | `NEXT_OUTPUT=export npm run build` |
+   | 构建输出目录 | `out` |
+   | 根目录 | 留空 |
+
+   环境变量（可选）：`NODE_VERSION` = `20`。
+
+3. 保存并部署，完成后访问 `https://<项目名>.pages.dev`。
+
+`NEXT_OUTPUT=export` 会让 `next.config.mjs` 切换为静态导出、产物写入 `out/`；本地 `pnpm dev` / `pnpm start` 不受影响。
+
 ## 功能与默认体验
 
 - 面向用户时默认进入 **立体视图**，主画面只保留心情、当前动作、平面 / 立体切换、声音、对话与快捷互动，不出现调试参数。
+- **立体视图拥有真正的 3D 背景**：远景宋韵画卷（天穹、崇山、日月、云气）沿用原有 Canvas 绘制并烘焙为贴图；近景水面、青石台基、水榭廊柱、墨竹、青莲、乌篷舟与飞雁由 three.js 几何体搭建。左右拖动灵宠时镜头轻环绕，远山几乎不动、近景明显位移，形成真实视差。WebGL 或 CDN 不可用时自动回落到平面画卷。
 - **默认静音**：童声 TTS 关闭，点击标题栏的声音按钮后才会朗读。
 - **动作有完整演出**：每段动作 4–5 秒后自动结束，并随机切换到一个待机动作；调试台可锁定状态以便观察。
 - 对话以左下角浮动手记卡呈现，历史保留最近 40 条并可滚动回看；点击互动只追加禾禾的话语，只有输入框发言才显示用户气泡。
@@ -77,7 +98,8 @@ npm run dev
 - React 18 · TypeScript
 - TailwindCSS 3（设计令牌位于 `@core/tailwind/theme.ts`）
 - lucide-react 图标
-- three.js r128（运行时由 CDN 动态加载，保持原型的 3D 灵宠行为）
+- three.js r128（运行时由 CDN 动态加载，保持原型的 3D 灵宠行为；立体背景复用同一份运行时）
+- 立体背景 = 远景 CanvasTexture 画卷 + 近景程序化几何体（水面、石台、廊柱、墨竹、飞雁）
 
 ## 目录职责
 
@@ -112,7 +134,7 @@ src/
 │
 ├── components/                 # 按功能域组织的界面组件
 │   ├── companion/              # 顶部导航、提示气泡、对话流、快捷操作、输入栏
-│   ├── stage/                  # 宋韵山水水榭 Canvas 画卷
+│   ├── stage/                  # 宋韵山水水榭 Canvas 画卷、立体背景 Three.js 场景
 │   ├── character/              # 平面灵宠（SVG）与立体灵宠（three.js）
 │   ├── transition/             # 红枫化形叠加与枫叶绘制
 │   └── devtools/               # 右侧调试抽屉（实时状态 / 动作 / 场景灯光 / 气泡 / 日志）
@@ -142,6 +164,8 @@ src/
 │   ├── intent/analyze-user-input.ts  # 本地语义识别（12 种动作 + 心情）
 │   ├── audio/chime.ts                # 古琴泛音 / 风铎 / 化形音效
 │   ├── scene/time-of-day.ts          # 本地时间 → 背景晨昏主题
+│   ├── scene/paint-3d-backdrop.ts    # 立体背景的远景画卷烘焙（天穹 / 崇山 / 日月 / 云气）
+│   ├── three/load-three.ts           # three.js r128 共享 CDN 加载器
 │   └── speech/voices.ts              # 中文语音源排序
 │
 ├── types/                      # 领域类型与全局声明
@@ -202,5 +226,6 @@ src/
 
 - 对话由本地关键词意图识别 + 情绪台词库驱动，**不调用后端或大模型 API**；刷新页面会重置会话。
 - TTS 使用浏览器 Web Speech API，中文音色取决于系统 / 浏览器；建议使用 Chrome 或 Edge。
-- three.js r128 通过 CDN 动态加载；离线或 CDN 被阻断时，3D 视图会显示加载提示，2D 视图不受影响。若需离线部署，可改为 npm 依赖并按需动态导入。
+- three.js r128 通过 CDN 动态加载；离线或 CDN 被阻断时，3D 灵宠会显示加载提示，立体背景自动回落到平面画卷，2D 视图不受影响。若需离线部署，可改为 npm 依赖并按需动态导入。
+- 立体背景的远景贴图在主题切换时以 900ms 交叉淡化；近景材质同步做颜色插值，与平面画卷的晨昏过渡节奏一致。
 - 原型源文件未随仓库提交；`tsconfig.json` 中仍保留其排除项，便于后续放回对照。
