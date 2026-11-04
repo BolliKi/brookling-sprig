@@ -406,9 +406,13 @@ export function ThreeLandscapeStage({
         const pillarMaterial = new THREE.MeshBasicMaterial({ color: initialColors.pillar.clone() })
         const glowMaterial = new THREE.MeshBasicMaterial({ color: initialColors.glow.clone() })
 
+        // 近景构件统一放入框景组：窗口比例变化时整体横向缩放，保持画卷式构图
+        const pavilionFrameGroup = new THREE.Group()
+        mainScene.add(pavilionFrameGroup)
+
         const windowWall = new THREE.Mesh(new THREE.PlaneGeometry(2.6, 5.4), glowMaterial)
         windowWall.position.set(-7.0, 2.7, -2.35)
-        mainScene.add(windowWall)
+        pavilionFrameGroup.add(windowWall)
 
         const addBox = (
           parent: any,
@@ -437,31 +441,30 @@ export function ThreeLandscapeStage({
         addBox(latticeGroup, woodMaterial, -8.28, 2.7, 0, 0.1, 5.45, 0.08)
         addBox(latticeGroup, woodMaterial, -5.72, 2.7, 0, 0.1, 5.45, 0.08)
         addBox(latticeGroup, woodMaterial, -7.0, 0.48, 0.02, 2.66, 0.96, 0.1)
-        mainScene.add(latticeGroup)
+        pavilionFrameGroup.add(latticeGroup)
 
         const pillar = new THREE.Mesh(
           new THREE.CylinderGeometry(0.16, 0.19, 5.8, 14),
           pillarMaterial
         )
         pillar.position.set(-5.52, 2.9, -2.2)
-        mainScene.add(pillar)
+        pavilionFrameGroup.add(pillar)
 
         const pillarBase = new THREE.Mesh(
           new THREE.CylinderGeometry(0.24, 0.28, 0.26, 16),
           pillarMaterial
         )
         pillarBase.position.set(-5.52, 0.13, -2.2)
-        mainScene.add(pillarBase)
+        pavilionFrameGroup.add(pillarBase)
 
         const pillarHighlight = new THREE.Mesh(
           new THREE.PlaneGeometry(0.05, 5.4),
           new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.1 })
         )
         pillarHighlight.position.set(-5.42, 2.9, -2.03)
-        mainScene.add(pillarHighlight)
+        pavilionFrameGroup.add(pillarHighlight)
 
-        const topBeam = addBox(mainScene, woodMaterial, 0, 5.2, -2.5, 24, 0.34, 0.44)
-        topBeam.renderOrder = 1
+        addBox(pavilionFrameGroup, woodMaterial, 0, 5.2, -2.5, 24, 0.34, 0.44)
 
         const createGualuo = (sign: number) => {
           const group = new THREE.Group()
@@ -474,7 +477,7 @@ export function ThreeLandscapeStage({
             addBox(group, woodMaterial, x, 0, 0, 0.045, 0.46, 0.08)
           })
           addBox(group, woodMaterial, 0, 0, 0, 2.0, 0.045, 0.08)
-          mainScene.add(group)
+          pavilionFrameGroup.add(group)
         }
         createGualuo(-1)
         createGualuo(1)
@@ -740,6 +743,18 @@ export function ThreeLandscapeStage({
         }
         updateBackdropMapping(width, height)
 
+        let nearFieldScale = 1
+        const applyNearFieldScale = (w: number, h: number) => {
+          nearFieldScale = w / h / FRAME_REFERENCE_ASPECT
+          pavilionFrameGroup.scale.x = nearFieldScale
+          bambooGroup.position.x = 3.78 * nearFieldScale
+          bambooGroup.scale.x = nearFieldScale
+          lotusGroup.scale.x = nearFieldScale
+          flockGroup.scale.x = nearFieldScale
+          boatGroup.scale.x = nearFieldScale
+        }
+        applyNearFieldScale(width, height)
+
         handleResize = () => {
           const w = container.clientWidth || window.innerWidth
           const h = container.clientHeight || window.innerHeight
@@ -748,11 +763,13 @@ export function ThreeLandscapeStage({
           renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75))
           renderer.setSize(w, h)
           updateBackdropMapping(w, h)
+          applyNearFieldScale(w, h)
         }
         window.addEventListener('resize', handleResize)
 
         const clock = new THREE.Clock()
         let hasRenderedOnce = false
+        let flockDrift = 0
         let pendingTheme = pendingThemeRef.current || themeRef.current
         let currentThemeId = pendingTheme.id
 
@@ -810,14 +827,16 @@ export function ThreeLandscapeStage({
 
           lotusGroup.position.y = Math.sin(elapsed * 0.8) * 0.008
 
-          boatGroup.position.x = 7.4 + Math.sin(elapsed * 0.12) * 1.6
+          boatGroup.position.x =
+            (7.4 + Math.sin(elapsed * 0.12) * 1.6) * nearFieldScale
           boatGroup.position.z = -35 + Math.cos(elapsed * 0.09) * 0.4
           boatGroup.rotation.z = Math.sin(elapsed * 0.5) * 0.008
 
-          flockGroup.position.x += delta * 0.22
-          if (flockGroup.position.x > 6) {
-            flockGroup.position.x = -24
+          flockDrift += delta * 0.22
+          if (flockDrift > 23) {
+            flockDrift = -7
           }
+          flockGroup.position.x = (-17 + flockDrift) * nearFieldScale
           birds.forEach((bird, index) => {
             const flap = Math.sin(elapsed * 4.6 + bird.phase) * 0.12
             const positions = bird.positions
@@ -834,8 +853,9 @@ export function ThreeLandscapeStage({
             bird.line.visible = index < 5
           })
 
-          farMist.position.x = Math.sin(elapsed * 0.05) * 3
-          nearMist.position.x = 1 + Math.sin(elapsed * 0.08 + 1.2) * 1.8
+          farMist.position.x = Math.sin(elapsed * 0.05) * 3 * nearFieldScale
+          nearMist.position.x =
+            (1 + Math.sin(elapsed * 0.08 + 1.2) * 1.8) * nearFieldScale
 
           if (!hasRenderedOnce || visibleRef.current) {
             renderer.clear(true, true, true)
