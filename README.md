@@ -2,7 +2,7 @@
 
 宋韵山水水榭中的互动灵宠：四种情绪、十二种动作变体、2D / 3D 双形态、童声预生成语音与 TTS 回退、可收起的对话手记与右侧调试台。
 
-> **在线预览**：暂未部署。本地按下方命令启动后访问 <http://localhost:3000>。
+> **在线预览**：<https://brookling-sprig.pages.dev/>（本地启动见下方命令）。
 
 > **实机演示**：[演示录屏（1 分 32 秒）](https://github.com/BolliKi/brookling-sprig/blob/main/demo/brookling-demo.mp4) — 四种情绪、文字输入、收起对话、调试面板与光影切换。
 
