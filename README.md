@@ -4,6 +4,8 @@
 
 > **在线预览**：暂未部署。本地按下方命令启动后访问 <http://localhost:3000>。
 
+> **实机演示**：[演示录屏（1 分 32 秒）](https://github.com/BolliKi/brookling-sprig/blob/main/demo/brookling-demo.mp4) — 四种情绪、文字输入、收起对话、调试面板与光影切换。
+
 ## 快速开始
 
 ### 环境要求
@@ -72,26 +74,6 @@ npm run dev
 ```
 
 其他脚本同理替换为 `npm run <script>`。
-
-## 部署到 Cloudflare Pages
-
-项目为纯前端静态站点，可直接托管在 Cloudflare Pages：
-
-1. Cloudflare 控制台 → **Workers 和 Pages** → **创建** → **Pages** → **连接到 Git**，选择 `BolliKi/brookling-sprig` 仓库。
-2. 构建设置按下表填写：
-
-   | 字段 | 值 |
-   | --- | --- |
-   | 框架预设 | `无`（None） |
-   | 构建命令 | `NEXT_OUTPUT=export npm run build` |
-   | 构建输出目录 | `out` |
-   | 根目录 | 留空 |
-
-   环境变量（可选）：`NODE_VERSION` = `20`。
-
-3. 保存并部署，完成后访问 `https://<项目名>.pages.dev`。
-
-`NEXT_OUTPUT=export` 会让 `next.config.mjs` 切换为静态导出、产物写入 `out/`；本地 `pnpm dev` / `pnpm start` 不受影响。
 
 ## 功能与默认体验
 
